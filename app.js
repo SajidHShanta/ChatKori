@@ -1,7 +1,8 @@
 const express = require('express');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,9 @@ app.use(express.static('public'));
 //request parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//parse cookies
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.get('/', (req,  res) => {
   res.send('Hello World!')
