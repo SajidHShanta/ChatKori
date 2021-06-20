@@ -6,14 +6,18 @@ const dotenv = require('dotenv')
 const app = express();
 dotenv.config();
 
+//databasae connection
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true});
+
 //set view engine
 app.set('view engine', 'ejs');
 
 //set static folder
 app.use(express.static('public'));
 
-//databasae connection
-mongoose.connect(process.env.MONGO_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true});
+//request parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req,  res) => {
   res.send('Hello World!')
